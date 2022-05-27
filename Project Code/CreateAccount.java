@@ -179,7 +179,13 @@ public class CreateAccount extends javax.swing.JFrame {
                 ps.setString(2, username);
                 ps.setString(3, password);
                 ps.setString(4, age);
-                ps.executeUpdate();
+                ps.executeQuery();
+                
+                String query2="INSERT INTO players VALUES(?,null,?,null)";
+                ps = con.prepareStatement(query2);
+                ps.setString(1, username);
+                ps.setString(2, age);
+                ps.executeQuery();
                 JOptionPane.showMessageDialog(this, "Account Created!");
                 Login l = new Login();
                 l.setVisible(true);
