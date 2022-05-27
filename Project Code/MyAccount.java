@@ -225,11 +225,17 @@ public class MyAccount extends javax.swing.JFrame {
     Connection con;
     PreparedStatement ps;
     
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {        
+        MyReservations mr = new MyReservations(jLabel1.getText());
+        mr.setVisible(true);
+        this.setVisible(false);
         
     }                                        
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) { 
+        MyInvitations mi = new MyInvitations(jLabel1.getText());
+        mi.setVisible(true);
+        this.setVisible(false);
         
     }                                        
 
