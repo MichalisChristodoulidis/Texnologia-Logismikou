@@ -10,6 +10,7 @@ public class Login extends javax.swing.JFrame {
     Connection con=null;
     PreparedStatement ps=null;
     ResultSet rs=null;
+    ResultSet rs2=null;
 
     public Login() {
         initComponents();
@@ -149,31 +150,36 @@ public class Login extends javax.swing.JFrame {
 
     private java.sql.Statement stmt;
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-
         try {
-            String query="SELECT * FROM `user` WHERE username = ? AND password = ?";
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/let's play football", "root", "");
-            ps = con.prepareStatement(query);
-            ps.setString(1, txtusername.getText());
-            ps.setString(2, String.valueOf(txtpassword.getPassword()));
-            rs = ps.executeQuery();
-            if(rs.next())
-            {
-            if (txtusername.getText().equals("admin"))
-            {
+            if (txtusername.getText().equals("admin")){
+                String query="SELECT * FROM admin WHERE username = ? AND password = ?";
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/let's play football", "root", "");
+                ps = con.prepareStatement(query);
+                ps.setString(1, txtusername.getText());
+                ps.setString(2, String.valueOf(txtpassword.getPassword()));
+                rs = ps.executeQuery();
+                if(rs.next()){
                 Admin a = new Admin();
                 a.setVisible(true);
                 this.setVisible(false);
+                }
+                else
+                    JOptionPane.showMessageDialog(this, "Username and Password do not match");
             }
-            else
-            {
+            else{
+                String query2="SELECT * FROM user WHERE username = ? AND password = ?";
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/let's play football", "root", "");
+                ps = con.prepareStatement(query2);
+                ps.setString(1, txtusername.getText());
+                ps.setString(2, String.valueOf(txtpassword.getPassword()));
+                rs2 = ps.executeQuery();
+                if(rs2.next()){
                 User us = new User(txtusername.getText());
                 us.setVisible(true);
                 this.setVisible(false);
-            }
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "Username and Password do not match");
+                }
+                else
+                    JOptionPane.showMessageDialog(this, "Username and Password do not match");
             }
         } catch (SQLException ex) {
         JOptionPane.showMessageDialog(this, ex.getMessage());
