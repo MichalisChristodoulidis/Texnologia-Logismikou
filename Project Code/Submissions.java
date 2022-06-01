@@ -8,10 +8,16 @@ import javax.swing.table.DefaultTableModel;
 
 public class Submissions extends javax.swing.JFrame {
 
-    public Submissions() {
+    public Submissions(String username) {
         initComponents();
         viewSubmissions();
         jLabel1.setVisible(false);
+        jLabel2.setText(username);
+        jLabel2.setVisible(false);
+    }
+    
+    public Submissions() {
+        initComponents();
     }
 
     /**
@@ -32,6 +38,7 @@ public class Submissions extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,6 +109,8 @@ public class Submissions extends javax.swing.JFrame {
 
         jLabel1.setText("jLabel1");
 
+        jLabel2.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,7 +132,9 @@ public class Submissions extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
                 .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
@@ -138,7 +149,9 @@ public class Submissions extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
@@ -233,7 +246,7 @@ public class Submissions extends javax.swing.JFrame {
     
     private void rejectSubmission()
     {
-        Explanation e = new Explanation(jLabel1.getText());
+        Explanation e = new Explanation(jLabel2.getText(), jLabel1.getText());
         e.setVisible(true);
         this.setVisible(false);
     }
@@ -255,7 +268,7 @@ public class Submissions extends javax.swing.JFrame {
     }                                    
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        Admin a = new Admin();
+        Admin a = new Admin(jLabel1.getText());
         a.setVisible(true);
         this.setVisible(false);
     }                                        
@@ -310,6 +323,7 @@ public class Submissions extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
