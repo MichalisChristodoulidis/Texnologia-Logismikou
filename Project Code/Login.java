@@ -159,20 +159,30 @@ public class Login extends javax.swing.JFrame {
             rs = ps.executeQuery();
             
             String query2="SELECT * FROM user WHERE username = ? AND password = ?";
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/let's play football", "root", "");
             ps = con.prepareStatement(query2);
             ps.setString(1, txtusername.getText());
             ps.setString(2, String.valueOf(txtpassword.getPassword()));
             rs2 = ps.executeQuery();
             
+            String query3="SELECT * FROM owner WHERE username = ? AND password = ?";
+            ps = con.prepareStatement(query3);
+            ps.setString(1, txtusername.getText());
+            ps.setString(2, String.valueOf(txtpassword.getPassword()));
+            rs3 = ps.executeQuery();
+            
             if(rs.next()){
-            Admin a = new Admin();
+            Admin a = new Admin(txtusername.getText());
             a.setVisible(true);
             this.setVisible(false);
             }
             else if(rs2.next()){
             User us = new User(txtusername.getText());
             us.setVisible(true);
+            this.setVisible(false);
+            }
+            else if(rs3.next()){
+            Owner ow = new Owner(txtusername.getText());
+            ow.setVisible(true);
             this.setVisible(false);
             }
             else
