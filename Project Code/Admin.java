@@ -8,6 +8,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class Admin extends javax.swing.JFrame {
 
+    public Admin(String username) {
+        initComponents();
+        jLabel1.setText(username);
+        jLabel1.setVisible(false);
+    }
+    
     public Admin() {
         initComponents();
     }
@@ -29,6 +35,7 @@ public class Admin extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +102,8 @@ public class Admin extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -103,6 +112,8 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -121,8 +132,13 @@ public class Admin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)))
                 .addContainerGap(148, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -142,13 +158,13 @@ public class Admin extends javax.swing.JFrame {
     }// </editor-fold>                        
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        RemoveField rf = new RemoveField();
+        RemoveField rf = new RemoveField(jLabel1.getText());
         rf.setVisible(true);
         this.setVisible(false);
     }                                        
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        Admin a = new Admin();
+        Admin a = new Admin(jLabel1.getText());
         a.setVisible(true);
         this.setVisible(false);
     }                                        
@@ -160,19 +176,19 @@ public class Admin extends javax.swing.JFrame {
     }                                        
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        Submissions s = new Submissions();
+        Submissions s = new Submissions(jLabel1.getText());
         s.setVisible(true);
         this.setVisible(false);
     }                                        
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        AddField af = new AddField();
+        AddField af = new AddField(jLabel1.getText());
         af.setVisible(true);
         this.setVisible(false);
     }                                        
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        EditField ef = new EditField();
+        EditField ef = new EditField(jLabel1.getText());
         ef.setVisible(true);
         this.setVisible(false);
     }                                        
@@ -220,6 +236,7 @@ public class Admin extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JToolBar jToolBar1;
     // End of variables declaration                   
