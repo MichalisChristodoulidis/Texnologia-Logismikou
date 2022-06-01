@@ -8,6 +8,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class AddField extends javax.swing.JFrame {
 
+    public AddField(String username) {
+        initComponents();
+        jLabel1.setText(username);
+        jLabel1.setVisible(false);
+    }
+    
     public AddField() {
         initComponents();
     }
@@ -40,6 +46,7 @@ public class AddField extends javax.swing.JFrame {
         txtequipment = new javax.swing.JTextField();
         txtsize = new javax.swing.JTextField();
         txtprice = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Field Rating");
@@ -122,6 +129,8 @@ public class AddField extends javax.swing.JFrame {
 
         txtprice.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        jLabel1.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,6 +166,10 @@ public class AddField extends javax.swing.JFrame {
                         .addGap(216, 216, 216)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(24, 24, 24))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +204,9 @@ public class AddField extends javax.swing.JFrame {
                     .addComponent(jLabel11))
                 .addGap(31, 31, 31)
                 .addComponent(jButton2)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -225,7 +240,7 @@ public class AddField extends javax.swing.JFrame {
     }                                        
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        Admin a = new Admin();
+        Admin a = new Admin(jLabel1.getText());
         a.setVisible(true);
         this.setVisible(false);
     }                                        
@@ -282,6 +297,7 @@ public class AddField extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
