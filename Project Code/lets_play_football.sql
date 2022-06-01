@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2022 at 04:19 PM
+-- Generation Time: Jun 01, 2022 at 07:55 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -58,7 +58,8 @@ CREATE TABLE `challenge` (
 
 INSERT INTO `challenge` (`challenge_id`, `team1`, `team2`) VALUES
 (1, 'Keravnos FC', 'Athens FC'),
-(2, 'Keravnos FC', 'Athens FC');
+(2, 'Keravnos FC', 'Athens FC'),
+(3, 'Keravnos FC', 'Athens FC');
 
 -- --------------------------------------------------------
 
@@ -73,6 +74,13 @@ CREATE TABLE `confirmation_email` (
   `date` datetime NOT NULL,
   `field` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `confirmation_email`
+--
+
+INSERT INTO `confirmation_email` (`user_userame`, `user_email`, `res_id`, `date`, `field`) VALUES
+('a', 'a', 7, '2022-06-10 21:00:00', 'Athens 5x5');
 
 -- --------------------------------------------------------
 
@@ -90,7 +98,8 @@ CREATE TABLE `explanation` (
 --
 
 INSERT INTO `explanation` (`submission_id`, `explanation`) VALUES
-(6, 'test');
+(6, 'test'),
+(11, 'test');
 
 -- --------------------------------------------------------
 
@@ -114,7 +123,7 @@ CREATE TABLE `field` (
 
 INSERT INTO `field` (`name`, `area`, `size`, `price`, `rating`, `equipment`, `schedule`) VALUES
 ('Athens 5x5', 'Athens', '5x5', '€5 per person', 4.4, 'Gloves,Shoes', NULL),
-('EllinikoFields', 'Patras', '6x6', '€7 per person', 4.8, 'Gloves,Shoes,Baths,Parking', NULL);
+('EllinikoFields', 'Patras', '6x6', '€7 per person', 4.8, 'Gloves', NULL);
 
 -- --------------------------------------------------------
 
@@ -152,6 +161,8 @@ CREATE TABLE `owner` (
 --
 
 INSERT INTO `owner` (`username`, `password`, `fieldname`, `fieldarea`, `fieldsize`, `fieldprice`, `fieldrating`, `fieldequipment`, `fieldschedule`) VALUES
+('owner', 'owner', 'Athens 5x5', 'Athens', '5x5', '€5 per person', 4.4, 'Gloves,Shoes', NULL),
+('owner', 'owner', 'EllinikoFields', 'Patras', '6x6', '€7 per person', 4.8, 'Gloves', NULL),
 ('owner', 'owner', 'MegaFootballAthens', 'Athens', '6x6', '€6 per person', 3.2, 'Baths', NULL);
 
 -- --------------------------------------------------------
@@ -188,6 +199,13 @@ CREATE TABLE `reservation` (
   `field` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `reservation`
+--
+
+INSERT INTO `reservation` (`reservation_id`, `date`, `user`, `field`) VALUES
+(7, '2022-06-10 21:00:00', 'a', 'Athens 5x5');
+
 -- --------------------------------------------------------
 
 --
@@ -197,9 +215,15 @@ CREATE TABLE `reservation` (
 CREATE TABLE `submission` (
   `submission_id` int(11) NOT NULL,
   `owner` varchar(25) NOT NULL,
-  `admin` varchar(25) NOT NULL,
   `field` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `submission`
+--
+
+INSERT INTO `submission` (`submission_id`, `owner`, `field`) VALUES
+(12, 'owner', 'MegaFootballAthens');
 
 -- --------------------------------------------------------
 
@@ -219,7 +243,7 @@ CREATE TABLE `team` (
 
 INSERT INTO `team` (`team_name`, `number_of_players`, `avg_age`) VALUES
 ('Athens FC', 6, 25.6),
-('Keravnos FC', 9, 21.7778);
+('Keravnos FC', 10, 21.6);
 
 -- --------------------------------------------------------
 
@@ -296,7 +320,7 @@ ALTER TABLE `invitation`
 -- Indexes for table `owner`
 --
 ALTER TABLE `owner`
-  ADD PRIMARY KEY (`username`);
+  ADD PRIMARY KEY (`fieldname`);
 
 --
 -- Indexes for table `players`
@@ -319,7 +343,6 @@ ALTER TABLE `reservation`
 ALTER TABLE `submission`
   ADD PRIMARY KEY (`submission_id`),
   ADD KEY `owner` (`owner`),
-  ADD KEY `admin` (`admin`),
   ADD KEY `field` (`field`);
 
 --
@@ -344,25 +367,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `challenge`
 --
 ALTER TABLE `challenge`
-  MODIFY `challenge_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `challenge_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `invitation`
 --
 ALTER TABLE `invitation`
-  MODIFY `invitation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `invitation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `submission`
 --
 ALTER TABLE `submission`
-  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `submission_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -391,6 +414,12 @@ ALTER TABLE `confirmation_email`
   ADD CONSTRAINT `confirmation_email_ibfk_5` FOREIGN KEY (`res_id`) REFERENCES `reservation` (`reservation_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `field`
+--
+ALTER TABLE `field`
+  ADD CONSTRAINT `field_ibfk_1` FOREIGN KEY (`name`) REFERENCES `owner` (`fieldname`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `invitation`
 --
 ALTER TABLE `invitation`
@@ -411,13 +440,6 @@ ALTER TABLE `players`
 ALTER TABLE `reservation`
   ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `reservation_ibfk_2` FOREIGN KEY (`field`) REFERENCES `field` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `submission`
---
-ALTER TABLE `submission`
-  ADD CONSTRAINT `submission_ibfk_1` FOREIGN KEY (`admin`) REFERENCES `admin` (`username`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `submission_ibfk_2` FOREIGN KEY (`owner`) REFERENCES `owner` (`username`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
