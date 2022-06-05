@@ -348,7 +348,7 @@ PreparedStatement ps;
             else if(rdST.isSelected()){
                 position = "ST";
             }
-            if (txtusername.getText()!=null){
+           if (!txtusername.getText().isEmpty()){
                 query="SELECT * FROM players WHERE username=?";
                 ps = con.prepareStatement(query);
                 ps.setString(1, txtusername.getText());
