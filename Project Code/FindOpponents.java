@@ -268,7 +268,7 @@ public class FindOpponents extends javax.swing.JFrame {
         try {
             String query;
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/let's play football", "root", "");
-            if (txtteamname.getText()!=null){
+            if (!txtteamname.getText().isEmpty()){
                 query="SELECT * FROM team WHERE team_name=?";
                 ps = con.prepareStatement(query);
                 ps.setString(1, txtteamname.getText());
