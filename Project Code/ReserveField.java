@@ -409,53 +409,53 @@ public class ReserveField extends javax.swing.JFrame {
             
             if (ratingchoice==1){
                 rating1 = "0.5";
-                rating2 = "1.4";
+                rating2 = "1.5";
                 }
             if (ratingchoice==2){
                 rating1 = "1.5";
-                rating2 = "2.4";
+                rating2 = "2.5";
             }
             if (ratingchoice==3){
                 rating1 = "2.5";
-                rating2 = "3.4";
+                rating2 = "3.5";
             }
             if (ratingchoice==4){
                 rating1 = "3.5"; 
-                rating2 = "4.4";
+                rating2 = "4.5";
             }
             if (ratingchoice==5){
                 rating1 = "4.5";
-                rating2 = "5";
+                rating2 = "5.1";
             }
-            
+
             if(rdGloves.isSelected()){
                 equipment += "Gloves";
             }
-            
-            if(rdShoes.isSelected()&&!rdGloves.isSelected()&&!rdBaths.isSelected()&&!rdParking.isSelected()){
+
+            if(rdShoes.isSelected()&&!rdGloves.isSelected()){
                 equipment += "Shoes";
             }
             else if (rdShoes.isSelected()){
                 equipment += ",Shoes";
-            }                
-            
-            if(rdBaths.isSelected()&&!rdGloves.isSelected()&&!rdShoes.isSelected()&&!rdParking.isSelected()){
+            }
+
+            if(rdBaths.isSelected()&&!rdGloves.isSelected()&&!rdShoes.isSelected()){
                 equipment += "Baths";
             }
-            else if (rdShoes.isSelected()){
+            else if (rdBaths.isSelected()){
                 equipment += ",Baths";
-            }     
-            
+            }
+
             if(rdParking.isSelected()&&!rdGloves.isSelected()&&!rdShoes.isSelected()&&!rdBaths.isSelected()){
                 equipment += "Parking";
             }
             else if (rdParking.isSelected()){
                 equipment += ",Parking";
-            }     
-            
+            }
+
             String query;
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/let's play football", "root", "");
-            if (txtfieldname.getText()!=null){
+            if (!txtfieldname.getText().isEmpty()){
                 query="SELECT * FROM field WHERE name=?";
                 ps = con.prepareStatement(query);
                 ps.setString(1, fieldname);
